@@ -1,0 +1,9 @@
+api = "0.5"
+
+[buildpack]
+id = "com.unica.openapi-rebuild"
+name = "OpenAPI Rebuild Trigger"
+version = "0.1.0"
+
+[[stacks]]
+id = "heroku-22"

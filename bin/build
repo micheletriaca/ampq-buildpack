@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+# Basic config
+ROUTING_KEY="openapi.rebuild.requested"
+EXCHANGE="domain.events"
+
+echo "🔁 Publishing OpenAPI rebuild event for service: $SERVICE_NAME"
+
+# Message payload
+PAYLOAD="{\"service\":\"$SERVICE_NAME\"}"
+
+# Run the binary (bundled inside the buildpack)
+$BUILD_DIR/openapi-publish \
+  --uri "$STACKHERO_RABBITMQ_AMQP_URL_TLS" \
+  --exchange "$EXCHANGE" \
+  --routing-key "$ROUTING_KEY" \
+  --body "$PAYLOAD" \
+  || {
+    echo "❌ Failed to publish event to RabbitMQ"
+    exit 1
+  }
+
+echo "✅ Event published to $EXCHANGE with routing key $ROUTING_KEY"
+
+exit 0

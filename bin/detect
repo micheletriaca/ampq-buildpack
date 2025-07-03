@@ -1,0 +1,3 @@
+#!/bin/sh
+# Always apply the buildpack
+exit 0
