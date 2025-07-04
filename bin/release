@@ -11,7 +11,7 @@ echo "🔁 Publishing OpenAPI rebuild event for service: $SERVICE_NAME"
 PAYLOAD="{\"service\":\"$SERVICE_NAME\"}"
 
 # Run the binary (bundled inside the buildpack)
-$BUILD_DIR/openapi-publish \
+$BUILDPACK_DIR/openapi-publish \
   --uri "$STACKHERO_RABBITMQ_AMQP_URL_TLS" \
   --exchange "$EXCHANGE" \
   --routing-key "$ROUTING_KEY" \
