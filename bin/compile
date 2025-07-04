@@ -1,2 +1,16 @@
-#!/bin/sh
-exit 0
+#!/usr/bin/env bash
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+BUILDPACK_DIR="$(dirname $(dirname $0))"
+
+echo "🔧 Installing openapi-publish binary"
+
+mkdir -p "$BUILD_DIR/bin"
+cp "$BUILDPACK_DIR/bin/openapi-publish" "$BUILD_DIR/bin/openapi-publish"
+chmod +x "$BUILD_DIR/bin/openapi-publish"
+
+mkdir -p "$BUILD_DIR/.profile.d"
+cp "$BUILDPACK_DIR/bin/profile/send-startup-event.sh" "$BUILD_DIR/.profile.d/send-startup-event.sh"
+chmod +x "$BUILD_DIR/.profile.d/send-startup-event.sh"
